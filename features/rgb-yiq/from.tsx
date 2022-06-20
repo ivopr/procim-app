@@ -29,7 +29,7 @@ export const FromYIQScreen: FC<
 
   const apisauce = create({
     baseURL: "https://procim-api.herokuapp.com",
-    timeout: 10000,
+    timeout: 300000,
     headers: {
       "Content-Type": "multipart/form-data",
     },

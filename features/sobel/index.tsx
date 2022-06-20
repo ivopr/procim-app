@@ -29,7 +29,7 @@ export const SobelScreen: FC<
 
   const apisauce = create({
     baseURL: "https://procim-api.herokuapp.com",
-    timeout: 10000,
+    timeout: 300000,
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -57,7 +57,8 @@ export const SobelScreen: FC<
 
     await apisauce
       .post<string>("/sobel", formdata)
-      .then(({ data }) => {
+      .then(({ data, problem }) => {
+        console.log(problem);
         if (data) {
           setProcessedImage(data as string);
         }

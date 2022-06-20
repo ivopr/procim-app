@@ -59,6 +59,10 @@ export const HomeScreen: FC<
         <Button onPress={() => navigation.navigate("mean")} themeInverse>
           Filtro de Média
         </Button>
+
+        <Button onPress={() => navigation.navigate("median")} themeInverse>
+          Filtro de Mediana
+        </Button>
       </YStack>
     </YStack>
   );

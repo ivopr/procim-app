@@ -5,6 +5,7 @@ import { EqualizationScreen } from "../../features/histogram/equalization";
 import { ExpansionScreen } from "../../features/histogram/expansion";
 import { HomeScreen } from "../../features/home/screen";
 import { MeanScreen } from "../../features/mean";
+import { MedianScreen } from "../../features/median";
 import { NegativeScreen } from "../../features/negative";
 import { FromYIQScreen } from "../../features/rgb-yiq/from";
 import { ToYIQScreen } from "../../features/rgb-yiq/to";
@@ -30,7 +31,7 @@ export const NativeNavigation: FC = () => {
       <Stack.Screen name="negative" component={NegativeScreen} />
       <Stack.Screen name="sobel" component={SobelScreen} />
       <Stack.Screen name="mean" component={MeanScreen} />
-      <Stack.Screen name="median" component={FromYIQScreen} />
+      <Stack.Screen name="median" component={MedianScreen} />
     </Stack.Navigator>
   );
 };

@@ -32,7 +32,7 @@ export const MeanScreen: FC<
   const [processing, setProcessing] = useState(false);
   const apisauce = create({
     baseURL: "https://procim-api.herokuapp.com",
-    timeout: 10000,
+    timeout: 300000,
     headers: {
       "Content-Type": "multipart/form-data",
     },

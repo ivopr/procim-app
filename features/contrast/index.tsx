@@ -22,17 +22,18 @@ import {
   YStack,
 } from "tamagui";
 
-export const MeanScreen: FC<
+export const ContrastScreen: FC<
   NativeStackScreenProps<StackNavigatorParams, "mean">
 > = () => {
   const [selectedImage, setSelectedImage] = useState("");
   const [processedImage, setProcessedImage] = useState("");
   const [n, setN] = useState(3);
+  const [c, setC] = useState(1);
 
   const [processing, setProcessing] = useState(false);
   const apisauce = create({
     baseURL: "https://procim-api.herokuapp.com",
-    timeout: 10000,
+    timeout: 300000,
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -58,6 +59,7 @@ export const MeanScreen: FC<
       type: "image/jpeg",
     });
 
+    formdata.append("c", c);
     formdata.append("n", n);
 
     await apisauce
@@ -118,6 +120,16 @@ export const MeanScreen: FC<
               value={n.toString()}
               keyboardType="numeric"
               onChangeText={(text) => setN(Number(text))}
+            />
+          </YStack>
+          <YStack jc="center">
+            <H5>Valor de C</H5>
+            <Input
+              placeholder="Valor de C"
+              disabled={processing ? true : undefined}
+              value={c.toString()}
+              keyboardType="numeric"
+              onChangeText={(text) => setC(Number(text))}
             />
           </YStack>
           <Button
