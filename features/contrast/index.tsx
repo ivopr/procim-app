@@ -22,13 +22,12 @@ import {
   YStack,
 } from "tamagui";
 
-export const MedianScreen: FC<
-  NativeStackScreenProps<StackNavigatorParams, "contrast">
+export const MeanScreen: FC<
+  NativeStackScreenProps<StackNavigatorParams, "mean">
 > = () => {
   const [selectedImage, setSelectedImage] = useState("");
   const [processedImage, setProcessedImage] = useState("");
   const [n, setN] = useState(3);
-  const [c, setC] = useState(1);
 
   const [processing, setProcessing] = useState(false);
   const apisauce = create({
@@ -59,11 +58,10 @@ export const MedianScreen: FC<
       type: "image/jpeg",
     });
 
-    formdata.append("c", c);
     formdata.append("n", n);
 
     await apisauce
-      .post<string>("/contrast", formdata)
+      .post<string>("/mean", formdata)
       .then(({ data }) => {
         if (data) {
           setProcessedImage(data as string);
@@ -89,9 +87,7 @@ export const MedianScreen: FC<
     <YStack f={1} ai="center" p="$4" space>
       <YStack space="$2" maw={600}>
         <H2 ta="center">Processar Imagem</H2>
-        <Paragraph ta="center">
-          Selecione uma imagem para ter suas bordas aguçadas
-        </Paragraph>
+        <Paragraph ta="center">Selecione uma imagem para ser borrada</Paragraph>
       </YStack>
       <Separator />
       <XStack space="$2">
@@ -122,16 +118,6 @@ export const MedianScreen: FC<
               value={n.toString()}
               keyboardType="numeric"
               onChangeText={(text) => setN(Number(text))}
-            />
-          </YStack>
-          <YStack jc="center">
-            <H5>Valor de C</H5>
-            <Input
-              placeholder="Valor de C"
-              disabled={processing ? true : undefined}
-              value={c.toString()}
-              keyboardType="numeric"
-              onChangeText={(text) => setC(Number(text))}
             />
           </YStack>
           <Button
