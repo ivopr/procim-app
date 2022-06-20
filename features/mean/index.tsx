@@ -31,7 +31,7 @@ export const MeanScreen: FC<
 
   const [processing, setProcessing] = useState(false);
   const apisauce = create({
-    baseURL: "http://192.168.1.87:8000",
+    baseURL: "https://procim-api.herokuapp.com",
     timeout: 10000,
     headers: {
       "Content-Type": "multipart/form-data",
