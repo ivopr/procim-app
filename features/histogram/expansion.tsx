@@ -21,7 +21,7 @@ import {
 } from "tamagui";
 
 export const ExpansionScreen: FC<
-  NativeStackScreenProps<StackNavigatorParams, "home">
+  NativeStackScreenProps<StackNavigatorParams, "expansion">
 > = () => {
   const [selectedImage, setSelectedImage] = useState("");
   const [processedImage, setProcessedImage] = useState("");

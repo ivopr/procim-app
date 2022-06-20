@@ -21,7 +21,7 @@ import {
 } from "tamagui";
 
 export const NegativeScreen: FC<
-  NativeStackScreenProps<StackNavigatorParams, "home">
+  NativeStackScreenProps<StackNavigatorParams, "negative">
 > = () => {
   const [selectedImage, setSelectedImage] = useState("");
   const [processedImage, setProcessedImage] = useState("");

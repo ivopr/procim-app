@@ -14,19 +14,22 @@ import {
   Button,
   H2,
   H4,
+  H5,
+  Input,
   Paragraph,
   Separator,
   XStack,
   YStack,
 } from "tamagui";
 
-export const FromYIQScreen: FC<
-  NativeStackScreenProps<StackNavigatorParams, "fromyiq">
+export const MedianScreen: FC<
+  NativeStackScreenProps<StackNavigatorParams, "median">
 > = () => {
   const [selectedImage, setSelectedImage] = useState("");
   const [processedImage, setProcessedImage] = useState("");
-  const [processing, setProcessing] = useState(false);
+  const [n, setN] = useState(3);
 
+  const [processing, setProcessing] = useState(false);
   const apisauce = create({
     baseURL: "https://procim-api.herokuapp.com",
     timeout: 10000,
@@ -55,8 +58,10 @@ export const FromYIQScreen: FC<
       type: "image/jpeg",
     });
 
+    formdata.append("n", n);
+
     await apisauce
-      .post<string>("/yiq-rgb", formdata)
+      .post<string>("/median", formdata)
       .then(({ data }) => {
         if (data) {
           setProcessedImage(data as string);
@@ -83,7 +88,7 @@ export const FromYIQScreen: FC<
       <YStack space="$2" maw={600}>
         <H2 ta="center">Processar Imagem</H2>
         <Paragraph ta="center">
-          Também transmuto o contrário. De YIQ para RGB
+          Selecione uma imagem para ter suas bordas aguçadas
         </Paragraph>
       </YStack>
       <Separator />
@@ -107,6 +112,16 @@ export const FromYIQScreen: FC<
           >
             Selecionar Imagem
           </Button>
+          <YStack jc="center">
+            <H5>Valor de N</H5>
+            <Input
+              placeholder="Valor de N"
+              disabled={processing ? true : undefined}
+              value={n.toString()}
+              keyboardType="numeric"
+              onChangeText={(text) => setN(Number(text))}
+            />
+          </YStack>
           <Button
             disabled={processing || !selectedImage ? true : undefined}
             onPress={process}

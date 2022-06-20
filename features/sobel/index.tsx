@@ -21,7 +21,7 @@ import {
 } from "tamagui";
 
 export const SobelScreen: FC<
-  NativeStackScreenProps<StackNavigatorParams, "home">
+  NativeStackScreenProps<StackNavigatorParams, "sobel">
 > = () => {
   const [selectedImage, setSelectedImage] = useState("");
   const [processedImage, setProcessedImage] = useState("");

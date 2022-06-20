@@ -21,7 +21,7 @@ import {
 } from "tamagui";
 
 export const EqualizationScreen: FC<
-  NativeStackScreenProps<StackNavigatorParams, "home">
+  NativeStackScreenProps<StackNavigatorParams, "equalization">
 > = () => {
   const [selectedImage, setSelectedImage] = useState("");
   const [processedImage, setProcessedImage] = useState("");
