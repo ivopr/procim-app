@@ -83,7 +83,7 @@ export const FromYIQScreen: FC<
       <YStack space="$2" maw={600}>
         <H2 ta="center">Processar Imagem</H2>
         <Paragraph ta="center">
-          Não sou alquimista mas transmuto de RGB para YIQ
+          Também transmuto o contrário. De YIQ para RGB
         </Paragraph>
       </YStack>
       <Separator />
