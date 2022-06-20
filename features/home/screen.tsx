@@ -1,41 +1,65 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FC } from "react";
-import { Anchor, H1, Paragraph, Separator, XStack, YStack } from "tamagui";
-
-import { LinkToUser } from "./link-to-user";
+import {
+  getMediaLibraryPermissionsAsync,
+  requestMediaLibraryPermissionsAsync,
+} from "expo-image-picker";
+import { FC, useEffect } from "react";
+import { Button, H2, Paragraph, Separator, YStack } from "tamagui";
 
 export const HomeScreen: FC<
   NativeStackScreenProps<StackNavigatorParams, "home">
 > = ({ navigation }) => {
+  useEffect(() => {
+    (async () => {
+      const { status } = await getMediaLibraryPermissionsAsync();
+
+      if (status !== "granted") {
+        await requestMediaLibraryPermissionsAsync();
+      }
+    })();
+  }, []);
+
   return (
-    <YStack f={1} jc="center" ai="center" p="$4" space>
-      <YStack space="$4" maw={600}>
-        <H1 ta="center">Welcome to Tamagui.</H1>
+    <YStack f={1} ai="center" p="$4" space>
+      <YStack space="$2" maw={600}>
+        <H2 ta="center">Processador de Imagens Philips Wallita</H2>
         <Paragraph ta="center">
-          Here's a basic starter to show navigating from one screen to another.
-          This screen uses the same code on Next.js and React Native.
-        </Paragraph>
-        <Separator />
-        <Paragraph ta="center">
-          Tamagui is made by{" "}
-          <Anchor href="https://twitter.com/natebirdman" target="_blank">
-            Nate Wienert
-          </Anchor>
-          , give it a star{" "}
-          <Anchor
-            href="https://github.com/tamagui/tamagui"
-            target="_blank"
-            rel="noreferrer"
-          >
-            on Github
-          </Anchor>
-          .
+          Escolha o tipo de processamento abaixo
         </Paragraph>
       </YStack>
+      <Separator />
+      <YStack>
+        <Button onPress={() => navigation.navigate("toyiq")} themeInverse>
+          RGB para YIQ
+        </Button>
 
-      <XStack>
-        <LinkToUser navigation={navigation} />
-      </XStack>
+        <Button onPress={() => navigation.navigate("fromyiq")} themeInverse>
+          YIQ para RGB
+        </Button>
+
+        <Button onPress={() => navigation.navigate("negative")} themeInverse>
+          Negativo
+        </Button>
+
+        <Button onPress={() => navigation.navigate("expansion")} themeInverse>
+          Expansão de Histograma
+        </Button>
+
+        <Button
+          onPress={() => navigation.navigate("equalization")}
+          themeInverse
+        >
+          Equalização de Histograma
+        </Button>
+
+        <Button onPress={() => navigation.navigate("sobel")} themeInverse>
+          Gradiente de Sobel
+        </Button>
+
+        <Button onPress={() => navigation.navigate("mean")} themeInverse>
+          Filtro de Média
+        </Button>
+      </YStack>
     </YStack>
   );
 };

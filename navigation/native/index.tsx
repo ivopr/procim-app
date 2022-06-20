@@ -1,39 +1,19 @@
-import firebaseAuth from "@react-native-firebase/auth";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { observer } from "mobx-react";
-import { FC, useCallback, useEffect } from "react";
+import { FC } from "react";
 
+import { EqualizationScreen } from "../../features/histogram/equalization";
+import { ExpansionScreen } from "../../features/histogram/expansion";
 import { HomeScreen } from "../../features/home/screen";
-import { UserDetailScreen } from "../../features/user/detail-screen";
-import { useStores } from "../../stores";
+import { MeanScreen } from "../../features/mean";
+import { NegativeScreen } from "../../features/negative";
+import { FromYIQScreen } from "../../features/rgb-yiq/from";
+import { ToYIQScreen } from "../../features/rgb-yiq/to";
+import { SobelScreen } from "../../features/sobel";
 import { Header } from "../header";
 
 const Stack = createNativeStackNavigator<StackNavigatorParams>();
 
-export const NativeNavigation: FC = observer(() => {
-  const { auth } = useStores();
-
-  const listeners = useCallback(async () => {
-    const authListener = firebaseAuth().onAuthStateChanged((user) => {
-      if (user) {
-        auth.setUser(user);
-        auth.setSignedIn(true);
-        auth.incSignInSuccess();
-      } else {
-        auth.setUser();
-        auth.setSignedIn(false);
-      }
-    });
-
-    return () => {
-      authListener();
-    };
-  }, []);
-
-  useEffect(() => {
-    listeners();
-  }, [listeners]);
-
+export const NativeNavigation: FC = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -42,20 +22,15 @@ export const NativeNavigation: FC = observer(() => {
         ),
       }}
     >
-      <Stack.Screen
-        name="home"
-        component={HomeScreen}
-        options={{
-          title: "Home",
-        }}
-      />
-      <Stack.Screen
-        name="user-detail"
-        component={UserDetailScreen}
-        options={{
-          title: "User",
-        }}
-      />
+      <Stack.Screen name="home" component={HomeScreen} />
+      <Stack.Screen name="toyiq" component={ToYIQScreen} />
+      <Stack.Screen name="fromyiq" component={FromYIQScreen} />
+      <Stack.Screen name="equalization" component={EqualizationScreen} />
+      <Stack.Screen name="expansion" component={ExpansionScreen} />
+      <Stack.Screen name="negative" component={NegativeScreen} />
+      <Stack.Screen name="sobel" component={SobelScreen} />
+      <Stack.Screen name="mean" component={MeanScreen} />
+      <Stack.Screen name="median" component={FromYIQScreen} />
     </Stack.Navigator>
   );
-});
+};

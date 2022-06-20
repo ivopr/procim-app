@@ -5,9 +5,9 @@ const IS_BETA = process.env.APP_VARIANT === "beta";
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   assetBundlePatterns: ["**/*"],
-  scheme: "tamagui-firebase-mobx-template",
-  name: IS_DEV ? "[DEV] TFMT" : IS_BETA ? "Tamagui Beta" : "Tamagui",
-  slug: "tamaguifmt",
+  scheme: "procim",
+  name: IS_DEV ? "[DEV] PdI" : IS_BETA ? "PdI Beta" : "PdI",
+  slug: "pdi",
   version: "1.0.0",
   orientation: "portrait",
   icon: IS_DEV
@@ -25,8 +25,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     fallbackToCacheTimeout: 0,
   },
   android: {
-    package: IS_DEV ? "dev.tamagui.expo.devclient" : "dev.tamagui.expo.client",
-    googleServicesFile: "google-services.json",
+    package: IS_DEV ? "com.demonicat.pdi.devclient" : "com.demonicat.pdi",
     versionCode: 2,
   },
   androidNavigationBar: {
@@ -37,10 +36,5 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     backgroundColor: "#ddffe2",
     barStyle: "dark-content",
   },
-  plugins: [
-    "@react-native-firebase/app",
-    "@react-native-firebase/crashlytics",
-    "@react-native-firebase/perf",
-    "@react-native-google-signin/google-signin",
-  ],
+  plugins: ["expo-image-picker"],
 });

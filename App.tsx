@@ -1,9 +1,8 @@
-import "react-native-get-random-values";
 import "expo-dev-client";
 
-import messaging from "@react-native-firebase/messaging";
 import { useFonts } from "expo-font";
-import { FC, useEffect } from "react";
+import { FC } from "react";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import { NativeNavigation } from "./navigation/native";
 import { Provider } from "./provider";
@@ -13,23 +12,18 @@ const App: FC = () => {
     Inter: require("@tamagui/font-inter/ttf/Inter.ttf"),
   });
 
-  useEffect(() => {
-    // Listen for push notifications
-    const unsubscribe = messaging().onMessage(console.log);
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
   if (!loaded) {
     return null;
   }
 
   return (
-    <Provider>
-      <NativeNavigation />
-    </Provider>
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <SafeAreaView>
+        <Provider>
+          <NativeNavigation />
+        </Provider>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 
