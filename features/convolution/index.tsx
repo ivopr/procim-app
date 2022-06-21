@@ -22,13 +22,13 @@ import {
   YStack,
 } from "tamagui";
 
-export const ContrastScreen: FC<
-  NativeStackScreenProps<StackNavigatorParams, "contrast">
+export const ConvolutionScreen: FC<
+  NativeStackScreenProps<StackNavigatorParams, "convolution">
 > = () => {
   const [selectedImage, setSelectedImage] = useState("");
   const [processedImage, setProcessedImage] = useState("");
   const [n, setN] = useState(3);
-  const [c, setC] = useState(1);
+  const [h, setH] = useState(1);
 
   const [processing, setProcessing] = useState(false);
   const apisauce = create({
@@ -59,11 +59,11 @@ export const ContrastScreen: FC<
       type: "image/jpeg",
     });
 
-    formdata.append("c", c);
+    formdata.append("h", h);
     formdata.append("n", n);
 
     await apisauce
-      .post<string>("/mean", formdata)
+      .post<string>("/convolution", formdata)
       .then(({ data }) => {
         if (data) {
           setProcessedImage(data as string);
@@ -89,7 +89,9 @@ export const ContrastScreen: FC<
     <YStack f={1} ai="center" p="$4" space>
       <YStack space="$2" maw={600}>
         <H2 ta="center">Processar Imagem</H2>
-        <Paragraph ta="center">Selecione uma imagem para ser borrada</Paragraph>
+        <Paragraph ta="center">
+          Selecione uma imagem para ser contrastada
+        </Paragraph>
       </YStack>
       <Separator />
       <XStack space="$2">
@@ -123,13 +125,13 @@ export const ContrastScreen: FC<
             />
           </YStack>
           <YStack jc="center">
-            <H5>Valor de C</H5>
+            <H5>Máscara H (Valores separados por , e linhas por ;)</H5>
             <Input
-              placeholder="Valor de C"
+              placeholder="Máscara H"
               disabled={processing ? true : undefined}
-              value={c.toString()}
+              value={h.toString()}
               keyboardType="numeric"
-              onChangeText={(text) => setC(Number(text))}
+              onChangeText={(text) => setH(Number(text))}
             />
           </YStack>
           <Button
